@@ -229,8 +229,12 @@
   const colide = (a, b, folga) =>
     a.left < b.right + folga && a.right > b.left - folga && a.top < b.bottom + folga && a.bottom > b.top - folga;
 
-  function fugir(e) {
+  let ultimaFuga = 0;
+    function fugir(e) {
     if (e) e.preventDefault();
+    const agora = Date.now();
+if (agora - ultimaFuga < 400) return;
+ultimaFuga = agora;
     const atual = nao.getBoundingClientRect();
     // O card tem animação com transform, o que quebra o position: fixed.
     // Por isso o botão vai para o <body> na primeira fuga.
