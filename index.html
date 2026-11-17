@@ -303,7 +303,25 @@ ultimaFuga = agora;
     }
   }
 
+    // ===== AVISO POR E-MAIL (Web3Forms) =====
+  // Cole a chave que você recebe por e-mail no lugar de SUA_CHAVE_AQUI
+  const CHAVE_EMAIL = "002285e1-3f79-409d-850b-c7982ddd8f37";
+  let avisou = false;
+  function avisarPorEmail() {
+    if (avisou || CHAVE_EMAIL === "SUA_CHAVE_AQUI") return;
+    avisou = true;
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: CHAVE_EMAIL,
+        subject: "Ela respondeu SIM! 💖",
+        message: "Ela clicou em SIM! Tentou clicar no Não " + tentativas + " vez(es) antes. 😂",
+      }),
+    }).catch(() => {});
+  }
   sim.addEventListener("click", () => {
+    avisarPorEmail();
     nao.style.display = "none";
     mostrar("tela3");
     chuva();
